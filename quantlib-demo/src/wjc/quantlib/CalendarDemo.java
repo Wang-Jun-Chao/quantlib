@@ -1,10 +1,13 @@
 package wjc.quantlib;
 
+import org.quantlib.BusinessDayConvention;
 import org.quantlib.Calendar;
 import org.quantlib.China;
 import org.quantlib.Date;
 import org.quantlib.Month;
+import org.quantlib.Period;
 import org.quantlib.SaudiArabia;
+import org.quantlib.TimeUnit;
 import org.quantlib.Weekday;
 
 /**
@@ -15,6 +18,7 @@ public class CalendarDemo {
     public static void main(String[] args) {
         case1();
         case2();
+        case3();
     }
 
     private static void case1() {
@@ -32,7 +36,7 @@ public class CalendarDemo {
     }
 
     private static void case2() {
-        System.out.println("--------------CASE 1--------------");
+        System.out.println("--------------CASE 2--------------");
         Calendar chinaCal = new China(China.Market.IB);
 
         Date d1 = new Date(5, Month.April, 2018);
@@ -50,5 +54,26 @@ public class CalendarDemo {
         System.out.println("Is Business Day : " + chinaCal.isBusinessDay(d1));
         System.out.println("Is Business Day : " + chinaCal.isBusinessDay(d2));
         System.out.println("Is Business Day : " + chinaCal.isBusinessDay(d3));
+    }
+
+    private static void case3() {
+        System.out.println("--------------CASE 3--------------");
+        Calendar chinaCal = new China(China.Market.IB);
+
+        Date firstDate = new Date(31, Month.January, 2018);
+        Date secondDate = new Date(1, Month.April, 2018);
+
+        System.out.println("Date 2 Adj :" + chinaCal.adjust(secondDate, BusinessDayConvention.Preceding));
+        System.out.println("Date 2 Adj :" + chinaCal.adjust(secondDate, BusinessDayConvention.ModifiedPreceding));
+
+        Period mat = new Period(2, TimeUnit.Months);
+
+        System.out.println("Date 1 Month Adv :" + chinaCal.advance(
+                firstDate, mat, BusinessDayConvention.Following, false));
+        System.out.println("Date 1 Month Adv :" + chinaCal.advance(
+                firstDate, mat, BusinessDayConvention.ModifiedFollowing, false));
+        System.out.println("Business Days Between :" + chinaCal.businessDaysBetween(
+                new Date(5, Month.March, 2018), new Date(30, Month.March, 2018),
+                true, true));
     }
 }
