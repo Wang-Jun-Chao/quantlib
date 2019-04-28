@@ -1,6 +1,7 @@
 package wjc.quantlib;
 
 import org.quantlib.Actual365Fixed;
+import org.quantlib.ActualActual;
 import org.quantlib.AnalyticEuropeanEngine;
 import org.quantlib.BlackConstantVol;
 import org.quantlib.BlackScholesMertonProcess;
@@ -18,6 +19,8 @@ import org.quantlib.Settings;
 import org.quantlib.SimpleQuote;
 import org.quantlib.VanillaOption;
 import org.quantlib.YieldTermStructureHandle;
+
+import java.time.LocalDate;
 
 /**
  * @author: wangjunchao(王俊超)
@@ -38,16 +41,17 @@ public class EuropeanOption {
         //  无风险利率
         double riskFreeRate = 0.001;
         //  1.2 分红率
-        double dividendRate = 0.01;
+        double dividendRate = 0.00;
         //  1.3 期权类型
         Option.Type optionType = Option.Type.Call;
 
         //  1.4 设置日期计算方式与使用地区
-        Actual365Fixed dayCount = new Actual365Fixed();
-//        var calendar = new UnitedStates();
+
+        ActualActual dayCount = new ActualActual();
         Calendar calendar = new China();
         //  1.5 计算期权价格的日期，也就是估值日，我们设为今天
-        Date calculationDate = new Date(23, Month.April, 2019);
+        LocalDate now = LocalDate.now();
+        Date calculationDate = new Date(now.getDayOfMonth(), Month.swigToEnum(now.getMonthValue()), now.getYear());
         Settings settings = Settings.instance();
         settings.setEvaluationDate(calculationDate);
         //  2. 利用上的设置配置一个欧式期权
@@ -77,17 +81,18 @@ public class EuropeanOption {
 
         //  4. 使用BSM定价引擎计算
         europeanOption.setPricingEngine(new AnalyticEuropeanEngine(bsmProcess));
-        double bsPrice = europeanOption.NPV();
+
+        double npv = europeanOption.NPV();
         double delta = europeanOption.delta();
         double theta = europeanOption.theta();
         double gamma = europeanOption.gamma();
         double vega = europeanOption.vega();
 
         String format = String.format("%-20s%-20s%-20s%-20s%-20s", "price", "delta", "gamma", "theta", "vega");
-        String format2 = String.format("%-20.10f%-20.10f%-20.10f%-20.10f%-20.10f", bsPrice, delta, gamma, theta, vega);
+        String format2 = String.format("%-20.10f%-20.10f%-20.10f%-20.10f%-20.10f", npv, delta, gamma, theta, vega);
         System.out.println(format);
         System.out.println(format2);
-        System.out.println("The theoretical price is " + bsPrice);
+        System.out.println("The theoretical price is " + npv);
 
     }
 }
