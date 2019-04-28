@@ -23,12 +23,12 @@ import static jdk.nashorn.internal.objects.Global.print;
  * @author: wangjunchao(王俊超)
  * @time: 2019-04-25 17:53
  **/
-public class CurveDemo1 {
+public class DiscountCurveDemo {
     public static void main(String[] args) {
-        discountCurveCase1();
+        discountCurve();
     }
 
-    private static void discountCurveCase1() {
+    private static void discountCurve() {
         System.out.println("--------------CASE 1--------------");
         DateVector dates = new DateVector();
         DoubleVector dfs = new DoubleVector();
