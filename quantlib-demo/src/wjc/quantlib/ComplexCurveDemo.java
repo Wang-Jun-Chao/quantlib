@@ -128,6 +128,7 @@ public class ComplexCurveDemo {
         for (int i = 0; i < instruments.size(); i++) {
             RateHelper rateHelper =  instruments.get(i);
 
+            // TODO Exception in thread "main" java.lang.ClassCastException: org.quantlib.RateHelper cannot be cast to org.quantlib.FixedRateBondHelper
             Leg cfs = ((FixedRateBondHelper)rateHelper).bond().cashflows();
             int cfSize = (int) cfs.size();
 
