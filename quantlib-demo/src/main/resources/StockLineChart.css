@@ -1,0 +1,15 @@
+.chart-series-line {
+    /*-fx-stroke: black;*/
+    -fx-stroke-width: 1px;
+    -fx-effect: null;
+}
+
+/*.Series1.chart-series-line {*/
+/*    -fx-stroke: red;*/
+/*    -fx-stroke-width: 2px;*/
+/*}*/
+
+/*.Series2.chart-series-line {*/
+/*    -fx-stroke: blue;*/
+/*    -fx-stroke-width: 2px;*/
+/*}*/

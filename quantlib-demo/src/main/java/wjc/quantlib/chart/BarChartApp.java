@@ -1,4 +1,4 @@
-package wjc.quantlib.stochastic_process;
+package wjc.quantlib.chart;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
